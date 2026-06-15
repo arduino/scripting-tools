@@ -19,6 +19,18 @@ func (s *dfuUtilScript) Name() string {
 	return "dfu-util"
 }
 
+func (s *dfuUtilScript) Description() string {
+	return "Upload firmware using dfu-util"
+}
+
+func (s *dfuUtilScript) Help() string {
+	return "This script allows you to upload firmware using dfu-util. It supports the following commands:\n\n" +
+		"  ::bootloader-installed <version>      Set the installed bootloader version\n" +
+		"  ::bootloader-required <version>       Set the required bootloader version\n" +
+		"  ::upload-bootloader <dfu-util args>   Upload the bootloader if the installed version is different from the required version\n" +
+		"  ::upload <dfu-util args>              Upload firmware using dfu-util"
+}
+
 func (s *dfuUtilScript) Run(args []string) error {
 	for {
 		if len(args) == 0 {
