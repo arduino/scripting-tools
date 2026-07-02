@@ -1,4 +1,4 @@
-module github.com/arduino/arduino-upload-scripter
+module github.com/arduino/scripting-tools
 
 go 1.26.3
 

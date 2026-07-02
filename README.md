@@ -1,22 +1,22 @@
-# arduino-upload-scripter
+# scripting-tools
 
 This tool is a wrapper for upload tools used in Arduino Platforms.
 It helps to perform some simple action before starting the actual upload.
 
 ## Usage
 
-The `arduino-upload-scripter` runs recipes hardcoded in the tool itself, called "scripts".
+The `scripting-tools` runs recipes hardcoded in the tool itself, called "scripts".
 
 Each script may have a number of options or commands available that can be called through the command line arguments.
 
 To list the available scripts run:
 
 ```
-$ arduino-upload-scripter script
-arduino-upload-scripter
+$ scripting-tools script
+scripting-tools
 
 Usage:
-  arduino-upload-scripter script <script-name> [flags]
+  scripting-tools script <script-name> [flags]
 
 The following scripts are available:
   dfu-util     Upload firmware using dfu-util
@@ -28,8 +28,8 @@ exit status 1
 To get help for a particular script just add the script name to the command line:
 
 ```
-$ arduino-upload-scripter dfu-util
-Usage: arduino-upload-scripter script dfu-util [flags]
+$ scripting-tools dfu-util
+Usage: scripting-tools script dfu-util [flags]
 
 This script allows you to upload firmware using dfu-util. It supports the following commands:
 
@@ -44,7 +44,7 @@ exit status 1
 
 To run a particular script, just add the needed command line flags to the command:
 ```
-$ arduino-upload-scripter dfu-util \
+$ scripting-tools dfu-util \
     ::bootloader-installed 1.2.3 \
     ::bootloader-required 3.4.5 \
     ::upload-bootloader echo Uploding boot \
@@ -57,7 +57,7 @@ $
 ```
 
 ```
-$ arduino-upload-scripter dfu-util \
+$ scripting-tools dfu-util \
     ::bootloader-installed 1.2.3 \
     ::bootloader-required 1.2.3 \
     ::upload-bootloader echo Uploding boot \
@@ -71,5 +71,5 @@ $
 ## Build
 
 ```bash
-go build -ldflags "-X github.com/arduino/arduino-upload-scripter/internal/version.Value=v1.0.0"
+go build -ldflags "-X github.com/arduino/scripting-tools/internal/version.Value=v1.0.0"
 ```

@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/arduino/arduino-upload-scripter/internal/cli"
+	"github.com/arduino/scripting-tools/internal/cli"
 )
 
 func main() {
