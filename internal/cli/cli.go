@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/arduino/scripting-tools/internal/scripts"
+	"github.com/arduino/scripting-tools/internal/scripts/conditional"
 	dfuutil "github.com/arduino/scripting-tools/internal/scripts/dfu-util"
 	"github.com/arduino/scripting-tools/internal/version"
 )
@@ -57,6 +58,7 @@ func printUsage(w io.Writer) {
 
 var availableScripts = []scripts.Script{
 	dfuutil.Script,
+	conditional.Script,
 }
 
 func runCmd(args []string) error {
