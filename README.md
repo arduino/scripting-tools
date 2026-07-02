@@ -9,27 +9,11 @@ The `scripting-tools` runs recipes hardcoded in the tool itself, called "scripts
 
 Each script may have a number of options or commands available that can be called through the command line arguments.
 
-To list the available scripts run:
-
-```
-$ scripting-tools script
-scripting-tools
-
-Usage:
-  scripting-tools script <script-name> [flags]
-
-The following scripts are available:
-  dfu-util     Upload firmware using dfu-util
-
-error: missing required script name
-exit status 1
-```
-
 To get help for a particular script just add the script name to the command line:
 
 ```
 $ scripting-tools dfu-util
-Usage: scripting-tools script dfu-util [flags]
+Usage: scripting-tools dfu-util [flags]
 
 This script allows you to upload firmware using dfu-util. It supports the following commands:
 
