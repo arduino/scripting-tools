@@ -7,7 +7,7 @@ import (
 
 	"github.com/arduino/scripting-tools/internal/scripts"
 	"github.com/arduino/scripting-tools/internal/scripts/conditional"
-	dfuutil "github.com/arduino/scripting-tools/internal/scripts/dfu-util"
+	twophase "github.com/arduino/scripting-tools/internal/scripts/two-phase"
 	"github.com/arduino/scripting-tools/internal/version"
 )
 
@@ -57,7 +57,7 @@ func printUsage(w io.Writer) {
 }
 
 var availableScripts = []scripts.Script{
-	dfuutil.Script,
+	twophase.Script,
 	conditional.Script,
 }
 
