@@ -97,9 +97,9 @@ jobs:
             github.com/go-task/task/v3/cmd/task go:test
 
       - name: Send unit tests coverage to Codecov
-        if: runner.os == 'Linux'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
-          file: ${{ matrix.module.path }}/coverage_unit.txt
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ matrix.module.path }}/coverage_unit.txt
           flags: ${{ matrix.module.codecov-flags }}
           fail_ci_if_error: ${{ github.repository == 'arduino/scripting-tools' }}
