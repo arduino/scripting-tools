@@ -26,6 +26,7 @@ Options:
 Commands:
   two-phase-upload Upload firmware using two-phase upload
   if              Run a command under a certain condition
+  run             Run a command
   version         Print version
   help            Show help
 ```
@@ -36,6 +37,14 @@ Run the conditional script when a condition is true:
 $ scripting-tools if eq a a echo OK
 Running command: echo OK
 OK
+```
+
+Run a command directly with `run`:
+
+```
+$ scripting-tools run echo RUN_OK
+Running command: echo RUN_OK
+RUN_OK
 ```
 
 Run two-phase upload and skip loader upload when versions match:
@@ -63,6 +72,7 @@ Usage:
 Commands:
   two-phase-upload Upload firmware using two-phase upload
   if              Run a command under a certain condition
+  run             Run a command
   version         Print version
   help            Show help
 

@@ -8,6 +8,7 @@ import (
 
 	"github.com/arduino/scripting-tools/internal/scripts"
 	"github.com/arduino/scripting-tools/internal/scripts/conditional"
+	runscript "github.com/arduino/scripting-tools/internal/scripts/run"
 	twophase "github.com/arduino/scripting-tools/internal/scripts/two-phase"
 	"github.com/arduino/scripting-tools/internal/version"
 )
@@ -83,6 +84,7 @@ func printUsage(w io.Writer) {
 var availableScripts = []scripts.Script{
 	twophase.Script,
 	conditional.Script,
+	runscript.Script,
 }
 
 func scriptByName(name string) (scripts.Script, bool) {

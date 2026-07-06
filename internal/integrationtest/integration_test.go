@@ -202,3 +202,49 @@ func TestMultipleScriptsWithCustomSeparator(t *testing.T) {
 		t.Fatalf("expected empty stderr, got %q", res.stderr)
 	}
 }
+
+func TestRunScriptExecutesCommand(t *testing.T) {
+	t.Parallel()
+
+	res := runScriptingTools(t, "run", "echo", "RUN_OK")
+
+	if res.exitCode != 0 {
+		t.Fatalf("expected exit code 0, got %d\nstderr=%q", res.exitCode, res.stderr)
+	}
+	if !strings.Contains(res.stdout, "Running command: echo RUN_OK") {
+		t.Fatalf("expected run command trace in stdout, got %q", res.stdout)
+	}
+	if !strings.Contains(res.stdout, "RUN_OK") {
+		t.Fatalf("expected run command output in stdout, got %q", res.stdout)
+	}
+	if res.stderr != "" {
+		t.Fatalf("expected empty stderr, got %q", res.stderr)
+	}
+}
+
+func TestRunScriptCanBeChainedWithSeparator(t *testing.T) {
+	t.Parallel()
+
+	res := runScriptingTools(
+		t,
+		"if", "eq", "1", "2", "echo", "YES",
+		"::",
+		"run", "echo", "NO",
+	)
+
+	if res.exitCode != 0 {
+		t.Fatalf("expected exit code 0, got %d\nstderr=%q", res.exitCode, res.stderr)
+	}
+	if strings.Contains(res.stdout, "YES") {
+		t.Fatalf("expected first command not to run, got stdout %q", res.stdout)
+	}
+	if !strings.Contains(res.stdout, "Running command: echo NO") {
+		t.Fatalf("expected chained run command to execute, got stdout %q", res.stdout)
+	}
+	if !strings.Contains(res.stdout, "NO") {
+		t.Fatalf("expected chained run command output, got stdout %q", res.stdout)
+	}
+	if res.stderr != "" {
+		t.Fatalf("expected empty stderr, got %q", res.stderr)
+	}
+}
