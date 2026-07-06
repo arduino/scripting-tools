@@ -1,3 +1,4 @@
+// Package conditional implements the conditional script that allows running commands based on conditions.
 package conditional
 
 import (
@@ -11,6 +12,7 @@ import (
 type conditionalScript struct {
 }
 
+// Script is the instance of the conditionalScript that will be used by the CLI.
 var Script = &conditionalScript{}
 
 func (s *conditionalScript) Name() string {

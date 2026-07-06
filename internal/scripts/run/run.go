@@ -1,3 +1,4 @@
+// Package run implements the run script that allows running arbitrary commands.
 package run
 
 import (
@@ -11,6 +12,7 @@ import (
 type runScript struct {
 }
 
+// Script is the instance of the runScript that will be used by the CLI.
 var Script = &runScript{}
 
 func (s *runScript) Name() string {

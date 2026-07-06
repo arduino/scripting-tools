@@ -1,3 +1,4 @@
+// Package twophase implements the two-phase upload script.
 package twophase
 
 import (
@@ -13,6 +14,7 @@ type twoPhaseUploadScript struct {
 	loaderRequired  string
 }
 
+// Script is the instance of the twoPhaseUploadScript that will be used by the CLI.
 var Script = &twoPhaseUploadScript{}
 
 func (s *twoPhaseUploadScript) Name() string {

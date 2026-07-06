@@ -1,3 +1,4 @@
+// Package main is the entry point for the scripting-tools CLI.
 package main
 
 import (

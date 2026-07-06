@@ -1,3 +1,4 @@
+// Package cli implements the command-line interface for the scripting-tools CLI.
 package cli
 
 import (
@@ -13,10 +14,11 @@ import (
 	"github.com/arduino/scripting-tools/internal/version"
 )
 
+// Run is the entry point for the scripting-tools CLI. It takes the command-line arguments and executes the appropriate script.
 func Run(args []string, stdout, stderr io.Writer) int {
 	separator, args, err := parseGlobalArgs(args)
 	if err != nil {
-		fmt.Fprintf(stderr, "error: %v\n", err)
+		_, _ = fmt.Fprintf(stderr, "error: %v\n", err)
 		return 1
 	}
 
@@ -30,14 +32,14 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		printUsage(stdout)
 		return 0
 	case "version", "--version", "-v":
-		fmt.Fprintln(stdout, version.Value)
+		_, _ = fmt.Fprintln(stdout, version.Value)
 		return 0
 	default:
 		if err := runCmds(args, separator); err != nil {
 			if isUnknownCommandError(err) {
 				printUsage(stderr)
 			}
-			fmt.Fprintf(stderr, "error: %v\n", err)
+			_, _ = fmt.Fprintf(stderr, "error: %v\n", err)
 			return 1
 		}
 		return 0
@@ -62,23 +64,23 @@ func parseGlobalArgs(args []string) (string, []string, error) {
 }
 
 func printUsage(w io.Writer) {
-	fmt.Fprintln(w, "scripting-tools")
-	fmt.Fprintln(w)
-	fmt.Fprintln(w, "Usage:")
-	fmt.Fprintln(w, "  scripting-tools [--sep <token>] <command> [flags]")
-	fmt.Fprintln(w, "  scripting-tools [--sep <token>] <command> [flags] [:: <command> [flags] ...]")
-	fmt.Fprintln(w)
-	fmt.Fprintln(w, "Options:")
-	fmt.Fprintln(w, "  --sep <token>   Top-level command separator token (default ::)")
-	fmt.Fprintln(w)
-	fmt.Fprintln(w, "Commands:")
+	_, _ = fmt.Fprintln(w, "scripting-tools")
+	_, _ = fmt.Fprintln(w)
+	_, _ = fmt.Fprintln(w, "Usage:")
+	_, _ = fmt.Fprintln(w, "  scripting-tools [--sep <token>] <command> [flags]")
+	_, _ = fmt.Fprintln(w, "  scripting-tools [--sep <token>] <command> [flags] [:: <command> [flags] ...]")
+	_, _ = fmt.Fprintln(w)
+	_, _ = fmt.Fprintln(w, "Options:")
+	_, _ = fmt.Fprintln(w, "  --sep <token>   Top-level command separator token (default ::)")
+	_, _ = fmt.Fprintln(w)
+	_, _ = fmt.Fprintln(w, "Commands:")
 
 	for _, s := range availableScripts {
-		fmt.Fprintf(w, "  %-15s %s\n", s.Name(), s.Description())
+		_, _ = fmt.Fprintf(w, "  %-15s %s\n", s.Name(), s.Description())
 	}
-	fmt.Fprintln(w, "  version         Print version")
-	fmt.Fprintln(w, "  help            Show help")
-	fmt.Fprintln(w)
+	_, _ = fmt.Fprintln(w, "  version         Print version")
+	_, _ = fmt.Fprintln(w, "  help            Show help")
+	_, _ = fmt.Fprintln(w)
 }
 
 var availableScripts = []scripts.Script{

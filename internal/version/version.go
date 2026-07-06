@@ -1,3 +1,4 @@
+// Package version provides the version of the scripting-tools CLI.
 package version
 
 // Value can be overridden at build time with:
