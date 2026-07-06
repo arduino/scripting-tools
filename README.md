@@ -1,5 +1,8 @@
 # scripting-tools
 
+[![Test Go status](https://github.com/arduino/scripting-tools/actions/workflows/test-go-task.yml/badge.svg)](https://github.com/arduino/scripting-tools/actions/workflows/test-go-task.yml)
+[![Codecov](https://codecov.io/gh/arduino/scripting-tools/branch/main/graph/badge.svg)](https://codecov.io/gh/arduino/scripting-tools)
+
 This tool is a wrapper for upload tools used in Arduino Platforms.
 It helps to perform some simple action before starting the actual upload.
 
