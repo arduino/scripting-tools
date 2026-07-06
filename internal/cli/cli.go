@@ -32,7 +32,7 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		printUsage(stdout)
 		return 0
 	case "version", "--version", "-v":
-		_, _ = fmt.Fprintln(stdout, version.Value)
+		_, _ = fmt.Fprintln(stdout, version.Version, "commit", version.Commit, "timestamp", version.Timestamp)
 		return 0
 	default:
 		if err := runCmds(args, separator); err != nil {
