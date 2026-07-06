@@ -1,3 +1,8 @@
+// This file is part of Arduino scripting-tools.
+//
+// SPDX-FileCopyrightText: Arduino s.r.l. and/or its affiliated companies
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // Package cli implements the command-line interface for the scripting-tools CLI.
 package cli
 

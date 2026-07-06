@@ -1,4 +1,8 @@
 # See: https://taskfile.dev/#/usage
+#
+# SPDX-FileCopyrightText: Arduino s.r.l. and/or its affiliated companies
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 version: "3"
 
 includes:
@@ -189,3 +193,12 @@ tasks:
           exit 1
         fi
       - licensed status
+
+  install:reuse:
+    cmds:
+      - uv tool install reuse
+
+  lint:reuse:
+    desc: Run reuse linter
+    cmds:
+      - uvx reuse lint

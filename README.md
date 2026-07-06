@@ -104,3 +104,12 @@ NO
 ```bash
 go build -ldflags "-X github.com/arduino/scripting-tools/internal/version.Value=v1.0.0"
 ```
+
+## License
+
+This software is release under the GPL-3.0-or-later.
+
+```
+SPDX-FileCopyrightText: Arduino s.r.l. and/or its affiliated companies
+SPDX-License-Identifier: GPL-3.0-or-later
+```

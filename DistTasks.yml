@@ -1,4 +1,7 @@
 # Source: https://github.com/arduino/tooling-project-assets/blob/main/workflow-templates/assets/release-go-task/DistTasks.yml
+#
+# SPDX-FileCopyrightText: Arduino s.r.l. and/or its affiliated companies
+# SPDX-License-Identifier: GPL-3.0-or-later
 version: "3"
 
 # This taskfile is ideally meant to be project agnostic and could be dropped in
