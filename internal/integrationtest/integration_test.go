@@ -147,3 +147,30 @@ func TestTwoPhaseUploadSkipsLoaderWhenUpToDate(t *testing.T) {
 		t.Fatalf("expected empty stderr, got %q", res.stderr)
 	}
 }
+
+func TestMultipleScriptsWithSeparator(t *testing.T) {
+	t.Parallel()
+
+	res := runScriptingTools(
+		t,
+		"if", "eq", "1", "2", "echo", "YES",
+		"::",
+		"if", "eq", "2", "2", "echo", "NO",
+	)
+
+	if res.exitCode != 0 {
+		t.Fatalf("expected exit code 0, got %d\nstderr=%q", res.exitCode, res.stderr)
+	}
+	if strings.Contains(res.stdout, "YES") {
+		t.Fatalf("expected first command not to run, got stdout %q", res.stdout)
+	}
+	if !strings.Contains(res.stdout, "Running command: echo NO") {
+		t.Fatalf("expected second command to run, got stdout %q", res.stdout)
+	}
+	if !strings.Contains(res.stdout, "NO") {
+		t.Fatalf("expected second command output, got stdout %q", res.stdout)
+	}
+	if res.stderr != "" {
+		t.Fatalf("expected empty stderr, got %q", res.stderr)
+	}
+}
