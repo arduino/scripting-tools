@@ -13,6 +13,12 @@ import (
 )
 
 func Run(args []string, stdout, stderr io.Writer) int {
+	separator, args, err := parseGlobalArgs(args)
+	if err != nil {
+		fmt.Fprintf(stderr, "error: %v\n", err)
+		return 1
+	}
+
 	if len(args) == 0 {
 		printUsage(stdout)
 		return 0
@@ -26,7 +32,7 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		fmt.Fprintln(stdout, version.Value)
 		return 0
 	default:
-		if err := runCmds(args); err != nil {
+		if err := runCmds(args, separator); err != nil {
 			if isUnknownCommandError(err) {
 				printUsage(stderr)
 			}
@@ -37,11 +43,32 @@ func Run(args []string, stdout, stderr io.Writer) int {
 	}
 }
 
+func parseGlobalArgs(args []string) (string, []string, error) {
+	separator := "::"
+
+	if len(args) > 0 && args[0] == "--sep" {
+		if len(args) < 2 {
+			return "", nil, fmt.Errorf("missing value for --sep")
+		}
+		if args[1] == "" {
+			return "", nil, fmt.Errorf("separator cannot be empty")
+		}
+		separator = args[1]
+		args = args[2:]
+	}
+
+	return separator, args, nil
+}
+
 func printUsage(w io.Writer) {
 	fmt.Fprintln(w, "scripting-tools")
 	fmt.Fprintln(w)
 	fmt.Fprintln(w, "Usage:")
-	fmt.Fprintln(w, "  scripting-tools <command> [flags]")
+	fmt.Fprintln(w, "  scripting-tools [--sep <token>] <command> [flags]")
+	fmt.Fprintln(w, "  scripting-tools [--sep <token>] <command> [flags] [:: <command> [flags] ...]")
+	fmt.Fprintln(w)
+	fmt.Fprintln(w, "Options:")
+	fmt.Fprintln(w, "  --sep <token>   Top-level command separator token (default ::)")
 	fmt.Fprintln(w)
 	fmt.Fprintln(w, "Commands:")
 
@@ -71,8 +98,8 @@ func isUnknownCommandError(err error) bool {
 	return strings.HasPrefix(err.Error(), "unknown command ")
 }
 
-func runCmds(args []string) error {
-	commands, err := splitCommands(args)
+func runCmds(args []string, separator string) error {
+	commands, err := splitCommands(args, separator)
 	if err != nil {
 		return err
 	}
@@ -85,23 +112,23 @@ func runCmds(args []string) error {
 	return nil
 }
 
-func splitCommands(args []string) ([][]string, error) {
+func splitCommands(args []string, separator string) ([][]string, error) {
 	var commands [][]string
 	start := 0
 
 	for i, arg := range args {
-		if arg != "::" {
+		if arg != separator {
 			continue
 		}
 		if i == start {
-			return nil, fmt.Errorf("unexpected separator \"::\"")
+			return nil, fmt.Errorf("unexpected separator %q", separator)
 		}
 		commands = append(commands, args[start:i])
 		start = i + 1
 	}
 
 	if start == len(args) {
-		return nil, fmt.Errorf("unexpected separator \"::\"")
+		return nil, fmt.Errorf("unexpected separator %q", separator)
 	}
 	commands = append(commands, args[start:])
 

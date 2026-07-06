@@ -10,13 +10,18 @@ The `scripting-tools` runs recipes hardcoded in the tool itself, called "scripts
 Each script may have a number of options or commands available that can be called through the command line arguments.
 
 You can run multiple scripts in sequence using a standalone `::` separator between scripts.
+You can also configure a different top-level separator with `--sep <token>`.
 Show available commands:
 
 ```
 $ scripting-tools
 
 Usage:
-  scripting-tools <command> [flags]
+  scripting-tools [--sep <token>] <command> [flags]
+  scripting-tools [--sep <token>] <command> [flags] [:: <command> [flags] ...]
+
+Options:
+  --sep <token>   Top-level command separator token (default ::)
 
 Commands:
   two-phase-upload Upload firmware using two-phase upload
@@ -69,6 +74,14 @@ Run multiple scripts in one invocation:
 
 ```
 $ scripting-tools if eq 1 2 echo YES :: if eq 2 2 echo NO
+Running command: echo NO
+NO
+```
+
+Run multiple scripts with a custom separator:
+
+```
+$ scripting-tools --sep AA if eq 1 2 echo YES AA if eq 2 2 echo NO
 Running command: echo NO
 NO
 ```
