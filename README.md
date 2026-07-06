@@ -8,48 +8,59 @@ It helps to perform some simple action before starting the actual upload.
 The `scripting-tools` runs recipes hardcoded in the tool itself, called "scripts".
 
 Each script may have a number of options or commands available that can be called through the command line arguments.
-
-To get help for a particular script just add the script name to the command line:
+Show available commands:
 
 ```
-$ scripting-tools dfu-util
-Usage: scripting-tools dfu-util [flags]
+$ scripting-tools
 
-This script allows you to upload firmware using dfu-util. It supports the following commands:
+Usage:
+  scripting-tools <command> [flags]
 
-  ::bootloader-installed <version>      Set the installed bootloader version
-  ::bootloader-required <version>       Set the required bootloader version
-  ::upload-bootloader <dfu-util args>   Upload the bootloader if the installed version is different from the required version
-  ::upload <dfu-util args>              Upload firmware using dfu-util
+Commands:
+  two-phase-upload Upload firmware using two-phase upload
+  if              Run a command under a certain condition
+  version         Print version
+  help            Show help
+```
 
-error: missing required flags for script "dfu-util"
+Run the conditional script when a condition is true:
+
+```
+$ scripting-tools if eq a a echo OK
+Running command: echo OK
+OK
+```
+
+Run two-phase upload and skip loader upload when versions match:
+
+```
+$ scripting-tools two-phase-upload \
+    ::loader-installed 1.2.3 \
+    ::loader-required 1.2.3 \
+    ::upload-loader echo LOADER \
+    ::upload echo FIRMWARE
+Installed loader is up-to-date.
+Running command: echo FIRMWARE
+FIRMWARE
+```
+
+Unknown command example:
+
+```
+$ scripting-tools does-not-exist
+scripting-tools
+
+Usage:
+  scripting-tools <command> [flags]
+
+Commands:
+  two-phase-upload Upload firmware using two-phase upload
+  if              Run a command under a certain condition
+  version         Print version
+  help            Show help
+
+error: unknown command "does-not-exist"
 exit status 1
-```
-
-To run a particular script, just add the needed command line flags to the command:
-```
-$ scripting-tools dfu-util \
-    ::bootloader-installed 1.2.3 \
-    ::bootloader-required 3.4.5 \
-    ::upload-bootloader echo Uploding boot \
-    ::upload echo UPLOAD SKETCH
-Running command: echo Uploding boot
-Uploding boot
-Running command: echo UPLOAD SKETCH
-UPLOAD SKETCH
-$
-```
-
-```
-$ scripting-tools dfu-util \
-    ::bootloader-installed 1.2.3 \
-    ::bootloader-required 1.2.3 \
-    ::upload-bootloader echo Uploding boot \
-    ::upload echo UPLOAD SKETCH
-Installed bootloader is up-to-date.
-Running command: echo UPLOAD SKETCH
-UPLOAD SKETCH
-$
 ```
 
 ## Build
