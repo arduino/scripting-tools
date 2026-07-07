@@ -102,7 +102,7 @@ NO
 ## Build
 
 ```bash
-go build -ldflags "-X github.com/arduino/scripting-tools/internal/version.Value=v1.0.0"
+task go:build
 ```
 
 ## License
