@@ -209,11 +209,11 @@ jobs:
             +x \
             "${{ env.BUILD_FOLDER }}/${{ env.PROJECT_NAME }}"
 
+          cp ../LICENSE.txt ${{ env.BUILD_FOLDER }}
+
           tar \
             -czvf "${{ env.PACKAGE_FILENAME }}" \
-            -C "${{ env.BUILD_FOLDER }}/" \
-            "${{ env.PROJECT_NAME }}" \
-            -C ../../ LICENSE.txt
+            "${{ env.BUILD_FOLDER }}"
 
       - name: Replace artifact with notarized build
         uses: actions/upload-artifact@v6
